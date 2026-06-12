@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Film</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: #0f0f0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background: #1a1a1a;
+            padding: 20px 30px;
+            border-bottom: 1px solid #333;
+        }
+        header h1 { font-size: 24px; font-weight: 600; color: #fff; }
+        header p { font-size: 14px; color: #999; margin-top: 4px; }
+        .container {
+            display: flex;
+            flex: 1;
+            padding: 20px;
+            gap: 24px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #333;
+            height: fit-content;
+            max-height: calc(100vh - 140px);
+            overflow-y: auto;
+        }
+        .sidebar h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        .sidebar ul { list-style: none; }
+        .sidebar li {
+            padding: 10px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: background 0.2s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .sidebar li:hover { background: #2a2a2a; }
+        .sidebar li.active { background: #3a6ea5; color: #fff; }
+        .player-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #333;
+            justify-content: center;
+            align-items: center;
+        }
+        .player-wrapper video {
+            max-width: 100%;
+            max-height: calc(100vh - 180px);
+            display: block;
+        }
+        .placeholder {
+            color: #666;
+            font-size: 18px;
+            text-align: center;
+            padding: 40px;
+        }
+        .placeholder svg { margin-bottom: 16px; opacity: 0.4; }
+        @media (max-width: 768px) {
+            .container { flex-direction: column; padding: 12px; gap: 12px; }
+            .sidebar { width: 100%; max-height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Server Film</h1>
+        <p>Elenco video disponibili nella cartella <code>video/</code></p>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Video ({{ videos|length }})</h2>
+            <ul id="video-list">
+                {% for v in videos %}
+                <li data-video="{{ v }}" onclick="playVideo(this)">{{ v }}</li>
+                {% else %}
+                <li style="color: #666; cursor: default;">Nessun video trovato</li>
+                {% endfor %}
+            </ul>
+        </aside>
+        <main class="player-wrapper">
+            <div id="placeholder" class="placeholder">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.5">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                    <polygon points="10,8 16,12 10,16" fill="#666" stroke="none"/>
+                </svg>
+                <br>
+                Seleziona un video dalla lista
+            </div>
+            <video id="player" controls preload="metadata" style="display:none;"></video>
+        </main>
+    </div>
+    <script>
+        let currentVideo = null;
+        const player = document.getElementById("player");
+        const placeholder = document.getElementById("placeholder");
+
+        function playVideo(el) {
+            document.querySelectorAll(".sidebar li").forEach(li => li.classList.remove("active"));
+            el.classList.add("active");
+            const filename = el.dataset.video;
+            if (currentVideo === filename) return;
+            currentVideo = filename;
+            const src = "/video/" + encodeURIComponent(filename);
+            placeholder.style.display = "none";
+            player.style.display = "block";
+            player.src = src;
+            player.load();
+            player.play().catch(() => {});
+        }
+
+        player.addEventListener("error", () => {
+            placeholder.style.display = "block";
+            placeholder.innerHTML = "Errore nel caricamento del video";
+            player.style.display = "none";
+        });
+    </script>
+</body>
+</html>
