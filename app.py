@@ -1,4 +1,3 @@
-import os
 import mimetypes
 from pathlib import Path
 from flask import Flask, render_template, request, Response, abort
@@ -6,18 +5,28 @@ from flask import Flask, render_template, request, Response, abort
 app = Flask(__name__)
 VIDEO_FOLDER = Path("video")
 
-def get_video_list():
+def get_categories():
     if not VIDEO_FOLDER.exists():
-        return []
-    return sorted(
-        f.name for f in VIDEO_FOLDER.iterdir()
-        if f.suffix.lower() == ".mp4"
-    )
+        return {}
+    categories = {}
+    for entry in sorted(VIDEO_FOLDER.iterdir(), key=lambda e: e.name.lower()):
+        if entry.is_dir():
+            videos = sorted(
+                {"name": f.name, "path": f"{entry.name}/{f.name}"}
+                for f in entry.iterdir()
+                if f.suffix.lower() == ".mp4"
+            )
+            categories[entry.name] = videos
+        elif entry.suffix.lower() == ".mp4":
+            categories.setdefault("Generale", []).append(
+                {"name": entry.name, "path": entry.name}
+            )
+    return categories
 
 @app.route("/")
 def index():
-    videos = get_video_list()
-    return render_template("index.html", videos=videos)
+    categories = get_categories()
+    return render_template("index.html", categories=categories)
 
 @app.route("/video/<path:filename>")
 def stream_video(filename):

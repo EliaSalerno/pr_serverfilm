@@ -8,19 +8,20 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background: #0f0f0f;
+            background: #002147;
             color: #e0e0e0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         header {
-            background: #1a1a1a;
+            background: #003153;
             padding: 20px 30px;
-            border-bottom: 1px solid #333;
+            border-bottom: 2px solid #daa520;
         }
-        header h1 { font-size: 24px; font-weight: 600; color: #fff; }
-        header p { font-size: 14px; color: #999; margin-top: 4px; }
+        header h1 { font-size: 24px; font-weight: 600; color: #daa520; }
+        header p { font-size: 14px; color: #8ab4d6; margin-top: 4px; }
+        header p code { color: #daa520; }
         .container {
             display: flex;
             flex: 1;
@@ -33,10 +34,10 @@
         .sidebar {
             width: 300px;
             flex-shrink: 0;
-            background: #1a1a1a;
+            background: #003153;
             border-radius: 8px;
             padding: 16px;
-            border: 1px solid #333;
+            border: 1px solid #26619c;
             height: fit-content;
             max-height: calc(100vh - 140px);
             overflow-y: auto;
@@ -45,11 +46,37 @@
             font-size: 16px;
             font-weight: 600;
             margin-bottom: 12px;
-            color: #fff;
+            color: #daa520;
         }
-        .sidebar ul { list-style: none; }
-        .sidebar li {
-            padding: 10px 12px;
+        .category { margin-bottom: 8px; }
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #8ab4d6;
+            transition: background 0.2s;
+            user-select: none;
+        }
+        .category-header:hover { background: #26619c; }
+        .category-header .arrow {
+            font-size: 12px;
+            transition: transform 0.2s;
+        }
+        .category-header .arrow.open { transform: rotate(90deg); }
+        .category-header .count {
+            margin-left: auto;
+            font-size: 12px;
+            color: #666;
+            font-weight: 400;
+        }
+        .category-videos { list-style: none; }
+        .category-videos li {
+            padding: 8px 12px 8px 28px;
             cursor: pointer;
             border-radius: 6px;
             font-size: 14px;
@@ -58,8 +85,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .sidebar li:hover { background: #2a2a2a; }
-        .sidebar li.active { background: #3a6ea5; color: #fff; }
+        .category-videos li:hover { background: rgba(218,165,32,0.15); }
+        .category-videos li.active { background: #daa520; color: #002147; font-weight: 600; }
         .player-wrapper {
             flex: 1;
             display: flex;
@@ -67,7 +94,7 @@
             background: #000;
             border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #333;
+            border: 1px solid #26619c;
             justify-content: center;
             align-items: center;
         }
@@ -77,12 +104,14 @@
             display: block;
         }
         .placeholder {
-            color: #666;
+            color: #8ab4d6;
             font-size: 18px;
             text-align: center;
             padding: 40px;
         }
         .placeholder svg { margin-bottom: 16px; opacity: 0.4; }
+        .placeholder svg rect { stroke: #daa520; }
+        .placeholder svg polygon { fill: #daa520; }
         @media (max-width: 768px) {
             .container { flex-direction: column; padding: 12px; gap: 12px; }
             .sidebar { width: 100%; max-height: 200px; }
@@ -96,20 +125,31 @@
     </header>
     <div class="container">
         <aside class="sidebar">
-            <h2>Video ({{ videos|length }})</h2>
-            <ul id="video-list">
-                {% for v in videos %}
-                <li data-video="{{ v }}" onclick="playVideo(this)">{{ v }}</li>
-                {% else %}
-                <li style="color: #666; cursor: default;">Nessun video trovato</li>
-                {% endfor %}
-            </ul>
+            <h2>Categorie</h2>
+            {% for cat_name, cat_videos in categories.items() %}
+            <div class="category">
+                <div class="category-header" onclick="toggleCategory(this)">
+                    <span class="arrow open">&#9654;</span>
+                    {{ cat_name }}
+                    <span class="count">{{ cat_videos|length }}</span>
+                </div>
+                <ul class="category-videos">
+                    {% for v in cat_videos %}
+                    <li data-video="{{ v.path }}" onclick="playVideo(this)">{{ v.name }}</li>
+                    {% else %}
+                    <li style="color: #666; cursor: default; padding-left: 28px;">Nessun video</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% else %}
+            <p style="color: #666;">Nessuna categoria trovata</p>
+            {% endfor %}
         </aside>
         <main class="player-wrapper">
             <div id="placeholder" class="placeholder">
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="1.5">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#daa520" stroke-width="1.5">
                     <rect x="2" y="4" width="20" height="16" rx="2"/>
-                    <polygon points="10,8 16,12 10,16" fill="#666" stroke="none"/>
+                    <polygon points="10,8 16,12 10,16" fill="#daa520" stroke="none"/>
                 </svg>
                 <br>
                 Seleziona un video dalla lista
@@ -122,13 +162,25 @@
         const player = document.getElementById("player");
         const placeholder = document.getElementById("placeholder");
 
+        function toggleCategory(el) {
+            const arrow = el.querySelector(".arrow");
+            const list = el.nextElementSibling;
+            if (list.style.display === "none") {
+                list.style.display = "";
+                arrow.classList.add("open");
+            } else {
+                list.style.display = "none";
+                arrow.classList.remove("open");
+            }
+        }
+
         function playVideo(el) {
             document.querySelectorAll(".sidebar li").forEach(li => li.classList.remove("active"));
             el.classList.add("active");
-            const filename = el.dataset.video;
-            if (currentVideo === filename) return;
-            currentVideo = filename;
-            const src = "/video/" + encodeURIComponent(filename);
+            const relpath = el.dataset.video;
+            if (currentVideo === relpath) return;
+            currentVideo = relpath;
+            const src = "/video/" + relpath;
             placeholder.style.display = "none";
             player.style.display = "block";
             player.src = src;
