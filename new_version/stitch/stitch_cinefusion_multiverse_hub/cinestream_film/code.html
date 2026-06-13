@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINESTREAM - Film</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&family=Geist:wght@500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=Sora:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error": "#ffb4ab",
+                    "on-secondary-container": "#007070",
+                    "inverse-on-surface": "#2a3043",
+                    "on-primary-fixed-variant": "#3037aa",
+                    "tertiary-container": "#16263a",
+                    "secondary": "#ffffff",
+                    "primary-container": "#00008b",
+                    "on-primary": "#141994",
+                    "primary-fixed": "#e0e0ff",
+                    "on-tertiary": "#213145",
+                    "secondary-container": "#00fbfb",
+                    "surface-bright": "#33394c",
+                    "surface-container-highest": "#2e3447",
+                    "outline": "#908f9f",
+                    "surface-container-lowest": "#070d1f",
+                    "secondary-fixed": "#00fbfb",
+                    "on-surface-variant": "#c6c5d5",
+                    "tertiary": "#b7c8e1",
+                    "surface-container": "#191f31",
+                    "surface": "#0c1324",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "inverse-primary": "#4951c3",
+                    "surface-dim": "#0c1324",
+                    "surface-container-low": "#151b2d",
+                    "on-secondary-fixed": "#002020",
+                    "on-tertiary-container": "#7d8da5",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-container": "#7981f5",
+                    "background": "#0c1324",
+                    "on-secondary": "#003737",
+                    "secondary-fixed-dim": "#00dddd",
+                    "tertiary-fixed": "#d3e4fe",
+                    "on-background": "#dce1fb",
+                    "on-surface": "#dce1fb",
+                    "inverse-surface": "#dce1fb",
+                    "error-container": "#93000a",
+                    "surface-variant": "#2e3447",
+                    "surface-tint": "#bfc2ff",
+                    "on-primary-fixed": "#00006e",
+                    "on-secondary-fixed-variant": "#004f4f",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary": "#bfc2ff",
+                    "on-error": "#690005",
+                    "surface-container-high": "#23293c",
+                    "outline-variant": "#454653",
+                    "primary-fixed-dim": "#bfc2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "margin-mobile": "16px",
+                    "container-max": "1440px",
+                    "unit": "8px",
+                    "margin-tablet": "32px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Sora"],
+                    "body-md": ["Inter"],
+                    "display-md": ["Sora"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Sora"],
+                    "headline-lg": ["Sora"],
+                    "label-md": ["Geist"],
+                    "label-sm": ["Geist"],
+                    "display-lg": ["Sora"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-md": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                    "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0c1324;
+            color: #dce1fb;
+            overflow-x: hidden;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(30, 41, 59, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            transform: scale(1.05);
+            border-color: #00fbfb;
+            box-shadow: 0 0 20px rgba(0, 251, 251, 0.15);
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(12, 19, 36, 0.2) 0%, rgba(12, 19, 36, 0.8) 60%, rgba(12, 19, 36, 1) 100%);
+        }
+        .vignette {
+            box-shadow: inset 0 0 150px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md">
+<header class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl">
+<div class="flex justify-between items-center px-4 md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-fixed">movie_filter</span>
+<h1 class="font-display-md text-headline-md font-bold tracking-tighter text-secondary-fixed">CINESTREAM</h1>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">Home</a>
+<a class="font-label-md text-label-md text-secondary-fixed border-b-2 border-secondary-fixed pb-1" href="#">Movies</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">TV Shows</a>
+</nav>
+<button class="p-2 rounded-full hover:bg-surface-variant transition-all scale-105 duration-200">
+<span class="material-symbols-outlined text-secondary-fixed">search</span>
+</button>
+</div>
+</header>
+<main class="relative pb-32">
+<section class="relative h-[60vh] md:h-[75vh] w-full flex items-end">
+<div class="absolute inset-0 z-0">
+<img alt="Background Cinematic" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqYIwuslWF8_8n6qvouICvpCYI6kUzRatdsgGi5IQ5PkAXMn-6dgk5qq4ClMNe3OtqfWCgzNc5upHqMZgI3v7Hs1_J2jDM0DOcQHMr0lnmoCh2_BhF38CcOP7Uk9hKCFa3SbxlmnYx5jm434rDxHBc-8ZCESPxOKeDo2HkyurPB8Igu394G5NljyX_lJinOPIFT41zg47XscZtySnkvXQHlfCVgcjQAR_iOZ-pFO34NCpRXFoNQpLa-1vVjzrYXsBDJqa1Z_wVKtw"/>
+<div class="absolute inset-0 hero-gradient"></div>
+<div class="absolute inset-0 vignette"></div>
+</div>
+<div class="relative z-10 px-4 md:px-margin-desktop pb-12 max-w-3xl">
+<h2 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-secondary mb-4">Film</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 leading-relaxed max-w-xl">
+                    Esplora la nostra collezione curata di capolavori cinematografici. Dai blockbuster d'azione alle gemme fantascientifiche, l'emozione del grande schermo è a portata di click.
+                </p>
+<div class="flex flex-wrap gap-4">
+<button class="px-8 py-3 bg-secondary-fixed text-on-secondary-fixed font-label-md text-label-md rounded-full font-bold flex items-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                        GUARDA ORA
+                    </button>
+<button class="px-8 py-3 border border-outline-variant text-secondary font-label-md text-label-md rounded-full font-bold hover:bg-surface-variant/30 transition-all">
+                        IL MIO ELENCO
+                    </button>
+</div>
+</div>
+</section>
+<section class="px-4 md:px-margin-desktop space-y-12 -mt-8 relative z-20">
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-secondary">Azione e Supereroi</h3>
+<button class="text-secondary-fixed font-label-sm text-label-sm flex items-center gap-1 hover:underline">
+                        VEDI TUTTO <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 snap-x">
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A dynamic cinematic movie poster of a masked superhero standing on a rainy skyscraper edge overlooking a neon-lit cyberpunk city. The scene is dominated by deep blues and vibrant cyan light trails, with a gritty atmospheric mood. Cinematic lighting illuminates the superhero's suit details in the dark night." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFcDkT1u1Q8w4sth3hVq2cfK6FJ7B2ShF6-teLYQ1r67213XnH5XEuRTu4kpCg_Bt_dKnBv8S2G9cBylozNVZwnLiCL-njhzlKXCbINnh4G-tVEN_aQW9qk-5P1PTFba03rT4RteciDFZKTc75n4BnxEW0LRCRNeDnq0FDddpa0sSwuOTicYOGioyMS-U1L3cDWCuWuuHZaKUrfMUhGDYl9WCXqFRS-3eOhqkg276XO-IFZrw1qHnaYw334QiwgVBzMmr2BA9h7As"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Il Vigilante Notturno</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2023 • Azione</p>
+</div>
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Action-packed movie poster featuring a futuristic armored vehicle racing through an explosive desert wasteland. High-contrast orange explosions contrast against a deep navy blue sky. Debris flies through the air in a high-speed motion blur, creating an intense cinematic sense of speed and danger." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtXiZZX1xhV4WvHvI9YsdgGYQcsc3HXShg_umUt0n60nbhj2fOFTSwEraGGDvDlCvTHfm1jya5deNEik7W0TlJ56v3sjs-TtAQ3n5u9rSJkX4z-O5YFCDM4o-z1aH61Lwjxxt0bemWrli5eYwY2wJw0NgvSPlbU9QHyuML5B9KE4VX9OUGMAdle-JNF7PthPJxvnnehtFpEVD4XV2I7_cp_4Q3j7yTC551DjM3Yc09uBLKqLeJSBxV1HjNXQUK3xyNh1ze0c4_KjE"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Codice di Fuoco</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024 • Azione</p>
+</div>
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Cinematic movie poster of a powerful female warrior with glowing energy gauntlets standing in a destroyed urban environment. The sky is a dramatic swirl of purple and blue cosmic clouds. Particles of light float around the protagonist, creating a premium high-fantasy sci-fi atmosphere with soft glows and sharp shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm_J_eGrRwzsdS2QewOh33Xbe0oi0QeMaQNiDmYfP1ZhZyIQXhPVRaqQglCtFdyhFdwrCQAl0L8PwaADINKzagadVz587yJGspmVdM97kZvV35S1hV-ucKnEXqo8FpESPB40o0DbReZprf7XRwB2RQED7Tolp5uajmxSST6iNxS9GbFCnw7zfVXQLEStTvLevyC_uwAF3I9yzTKAkdnAZ7c-qxDpj8MRcC3f78g0RqTM3XqW-thsLqF70qE5rlt1bt6qCPZ7PkPEk"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Regina Galattica</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2022 • Supereroi</p>
+</div>
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Dramatic movie poster for a superhero film showing a silhouette of a flying hero against a massive solar flare. Vibrant orange, yellow, and black color palette. The sun looms large in the background, creating a majestic and powerful silhouette that exudes strength and hope in a dark universe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPa9p2WUFSo31ubT_RXYsrZGt-rQsq17JlGpnzDTwSZN-6tFdZ4PGjBXSHQtXAy4Den5avZRRjlz16rR3Jgi6RBdRffiIHhYLJOEo6AMY-9sEAY9xRRhU5z60q9yf5TlecrGYP4h93zlkVcOzfI4H9WiCNbZLprFayKDJJqmGmB85A5qAot88T7wMzAoO_GverVQ3mqDd95LiN7bAzDzjiB1sr0eiD8mCYRI5Dka8aO3n-dJbH3PB_OnyxR-VWnHYg7vDR3rmiYng"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Solaris Rising</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024 • Azione</p>
+</div>
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Action movie poster featuring a sleek, futuristic samurai droid with a glowing cyan katana in a rain-slicked dark alley. Reflection of neon signs in the puddles on the ground. The aesthetic is ultra-modern and sleek, with a color palette of deep black, slate gray, and electric cyan highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCPOcsqXkEglYSsktJ9-rp1Fxcm--58i7RZxca934SM8L5S_KkBaHmDyUiL_l5EGv1sqEsLDlE7CeWPJqe0-HqNyNyA0XH2G3wOrPvWyEy5j7PfVBj1e0hecIl34yRmL61V30h-fqx_tMtvaOPy9Yx6ZkdpD8rn5jQLZTC0ZL_SO1zVw8kR3ymDpjYc80LMJKZe8OHfpXVRYrWpnHiq0kYH1Z6YocxtrP-dUkJBvSLol-VsBAm85CayABXyF1KW9ytmXE-SR1N4SKM"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Neo-Katana</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2023 • Azione</p>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-secondary">Fantascienza</h3>
+<button class="text-secondary-fixed font-label-sm text-label-sm flex items-center gap-1 hover:underline">
+                        VEDI TUTTO <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 snap-x">
+<div class="flex-none w-[280px] md:w-[320px] snap-start">
+<div class="aspect-video glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A wide cinematic shot of a massive ring-shaped space station orbiting a blue and violet nebula. Small scout ships dart between the structures. The lighting is ethereal and soft, with glowing windows dotting the station's dark metallic hull. A sense of immense scale and futuristic wonder in a dark space setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChEpGA3Cj8qtfWntWqig5o60epZSqhz8g6zLI7YTHp-CODC0WoMXTexIbL6gpGWSlVCQY9MxE32xy9XFGv0-Gxjxi7n-zr2o9bYgA7Ue-RQenIPGSJ4KvzB2oiljPEU9BC9151MCRp1fDoOA_7QsG8qTaGZKUPMFLC4SLJd2A3iMW_wNGFD5YqvyxM2VmpiWToJsbFfFdbHjcept1HQnndsyMrvsMmd9b-Kq05q6v9BtCDKllArIaaPqNeT_m-053Wv7pZRc4k2ZY"/>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-surface-variant">
+<div class="h-full bg-secondary-fixed w-1/3"></div>
+</div>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Orizzonte Eventi</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Continua a guardare</p>
+</div>
+<div class="flex-none w-[280px] md:w-[320px] snap-start">
+<div class="aspect-video glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close up of a highly detailed humanoid robot eye reflecting a digital city grid. The iris is composed of intricate mechanical parts and glowing blue circuits. The surrounding skin is synthetic and pale. Professional macro photography style with shallow depth of field, focusing on the technological complexity and sleek design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRnvUynk7QM1lTzbEtaHkWWdoaXtd-sJqksijGN0sIRHM9bZydqtVNGnzJCO6CqWAMtyfprF7A3nGvYPyFphgC2A7RBTJP-igJOLcU_It-PaaFP4nkVMOOtytcxgvhmBEWhrY9-i-a_IzUFURQH0XnWvSYabAIHWey3SmlU3wrKVUvUfqBd62vLA9Cf1SC4CzR9nRCdz9wM7eCR4GRb1d7KEZ0q3-pWdPs9hXflWQ4tvYUSb3pydOMAMiaub3IGryOMkmF15Ikuys"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Sintetico</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024 • Sci-Fi</p>
+</div>
+<div class="flex-none w-[280px] md:w-[320px] snap-start">
+<div class="aspect-video glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A futuristic starship bridge with holographic displays and glowing consoles. Outside the panoramic window, a binary star system glows with orange and blue light. Crew members in sleek uniforms work at stations. The lighting is moody and focused, highlighting the high-tech interface and the vastness of space beyond." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-HUFkKSZMFGSNHTo-T-qT0xOXZdlWMjHEpHaD8Tzi62NPogG58ngho9jMehOB_CE2PrHoexODmCcQhmWvkDU0zvRc1deUqQKsr3s5EpgmSaVoiC_rUYhEespHvSzG9WbCeqjxg1navnJ6nmN682hSB8EE3q-KutTxU3GmOYcy-0N9LPb_-bcQ4gmB-atnoQ30D-5jmED3bN7axqErYXRsneLpiREMZCgh1XxZcndCg1lZ6rPQIm59FwYVmXNvKcz2nvC0bwMV2B8"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Nucleo Stellare</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2023 • Sci-Fi</p>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-secondary">Thriller</h3>
+<button class="text-secondary-fixed font-label-sm text-label-sm flex items-center gap-1 hover:underline">
+                        VEDI TUTTO <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 snap-x">
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A moody thriller movie poster of a dark corridor with a single flickering light bulb at the far end. Mist hangs in the air. The color palette is almost monochromatic with deep charcoal grays and cold whites. A mysterious shadow is cast on the wall, creating a suspenseful and chilling cinematic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEMFb7_YvYNbmnA7mu7ndM5YE6zkxTIMcD8gbJHZe7ll_W5myUf0nPAphdptFyx20z-oh6TDbkuSryW3sfRoVH6cKofk4-DAgJ693abm1OkczeSr-cbOsenhOX1aufAZthYiaEK92znvM4n45TqFJOVdW5kt4yqPmiWOn1uzY-InCHEsk39My0la6ifEm2IgUgDFNCy9IyEr72gBX8CUJLQSWUSlRWTO4ZLlvHjjiyR2xoeie7IQB59roEQwrUN4XMzJAIe2icddM"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Sussurri nel Buio</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2023 • Thriller</p>
+</div>
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A high-contrast thriller poster showing a close-up of a nervous eye reflecting a crime scene map. The lighting is harsh side-lighting, casting deep shadows. Sharp details of the eye and the reflection create a feeling of intense focus and psychological tension. The mood is dark, intelligent, and mysterious." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHXvKGMWWICNg1lNjajs13P1Tj-SqqVrWm3Y5LXNo9KyNUuzHYPBbpIB7LQKPIX7fUOH5R0LlWk9EIbnJkWDVmXSTJvKjZC10moskuVKHwmh2vaaBg8S4DtEDS7iCjAs5DgTzgz0XYLD_CPg9tztnTyPkzkDC7D3zZ901zsXjGJk5cVFU8RHo3tq6T2MSRCOXd6hDr5A3aqLpKTiuaEyilD8PFyXgwjRR-OszvvA-2ifXdmNwuZjtCaOpHC4Ughl71nti8kHsjt58"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Il Settimo Senso</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024 • Mistero</p>
+</div>
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A cinematic overhead shot of a rainy city street at night with one bright red umbrella moving through a crowd of dark gray umbrellas. The lights of the city are blurred in the background (bokeh effect). The contrast between the single red object and the dark surroundings creates a dramatic focal point for a thriller movie theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1T2uE688AYE1fP44txJBDPgzga1x9V6SfbcHSYC1Gyl63rpPdjJn5t55tUaFW7JyKT_1K5SGH4TncwnWUeuehXXMhbzCf26grwvaB6Qxja1ybDLu1hiYH9sg6-mUb9yHKlxbJLmQmYtFbc8Nc7DM-Ct78BUdEXeyLuvv0NlATWoJ9vfmWITmR9CfGMBze6YuCGFv32ZXy7FxSGWBtQnBEJ2uYEMyA4VPcQ5oLBiADrJTuElkErX3r7Wk_dv3Lgs9wwNUs_Yrk4Fw"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Codice Rosso</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2022 • Thriller</p>
+</div>
+</div>
+</div>
+<div class="space-y-6 pb-12">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-secondary">Animazione</h3>
+<button class="text-secondary-fixed font-label-sm text-label-sm flex items-center gap-1 hover:underline">
+                        VEDI TUTTO <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 snap-x">
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Vibrant 3D animated movie poster of a whimsical floating island with bioluminescent plants and waterfalls flowing into clouds. The art style is lush and colorful, with soft rounded shapes and magical glowing particles. Sunset colors of pink, orange, and purple dominate the sky, creating a dreamlike and immersive fantasy world." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsjCVWLZkYv4BamGllOHO6_khiyA192EEwPn3gVvuJhSZNEbVZQEWcGb7Vt8OkaR0ji3uGtlS6r53xt2sAE0WuG9XR_jslkrBbGJ7QsyShPhO0jyIfAXO8hoZj_XDBzze3mFT_8kK0uJ9XklQNSMktyWgJatvICn0gxlqS98_FQGKfnG4NZ_iupYkZB4kz1MalEO7l92tBabO2pS1HMLQHtgDVTZSINusghNgI8CScPT3CjwSfzPKb7cyDNN7FQVZbv9QSUTr7eAE"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Sogni d'Aria</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2024 • Animazione</p>
+</div>
+<div class="flex-none w-[200px] md:w-[240px] snap-start">
+<div class="aspect-[2/3] glass-card rounded-xl overflow-hidden mb-3 group cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Stylized 2D animation movie poster featuring a cute forest spirit peeking from behind a giant glowing mushroom. The art style is reminiscent of hand-painted watercolor with rich textures and soft lighting. Deep forest greens and soft golden glows create a magical, peaceful atmosphere that appeals to all ages." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVdgT6ZNvJH8lIMKbvMNsE-bVsQDbVzHB3wc-YLXfohbzRgyuwcF9mAhcFy-vAIrZX-mR4W1i0HpofRLnkwA4ZOPfqpaBcrRy8NS4vwPVoLjtApFTTu7Kf-jc9tI489Yf0Ar2MSDP3B5oRAPdKZ_ZXuKiMXy8biqi303uHntjxS3HptFxHDxoJk4Fb-c56Hj33C-_NcvbWE95WOG3cDqKVTSicT9laLLW2sr3ZewwAOTejE5QZ9luOW1TT527i_GY3miBVeEjPpkc"/>
+</div>
+<h4 class="font-label-md text-label-md text-secondary truncate">Spiriti del Bosco</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">2023 • Famiglia</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="fixed bottom-0 w-full z-50 bg-surface-container/60 backdrop-blur-2xl border-t border-outline-variant/20 shadow-lg shadow-secondary-fixed/5 rounded-t-xl">
+<div class="flex justify-around items-center px-4 py-2 w-full">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/40 rounded-xl transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary-fixed bg-secondary-container/10 rounded-xl p-2 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="font-label-md text-label-md">Movies</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/40 rounded-xl transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">live_tv</span>
+<span class="font-label-md text-label-md">TV Shows</span>
+</a>
+</div>
+</footer>
+<script>
+        document.querySelectorAll('.hide-scrollbar').forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+</body></html>

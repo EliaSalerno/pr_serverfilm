@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINESTREAM | TV Shows</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&family=Geist:wght@500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=Sora:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(30, 41, 59, 0.5);
+        }
+        .vignette-gradient {
+            background: linear-gradient(to right, #0c1324 0%, rgba(12, 19, 36, 0.8) 40%, transparent 100%);
+        }
+        .vignette-bottom {
+            background: linear-gradient(to top, #0c1324 0%, transparent 100%);
+        }
+        .movie-card-glow:hover {
+            box-shadow: 0 0 20px rgba(0, 251, 251, 0.2);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c1324;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2e3447;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #454653;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#bfc2ff",
+                      "on-tertiary-container": "#7d8da5",
+                      "on-primary-fixed": "#00006e",
+                      "surface-bright": "#33394c",
+                      "tertiary": "#b7c8e1",
+                      "secondary-container": "#00fbfb",
+                      "tertiary-fixed": "#d3e4fe",
+                      "on-primary-fixed-variant": "#3037aa",
+                      "on-secondary-container": "#007070",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "error-container": "#93000a",
+                      "outline": "#908f9f",
+                      "inverse-on-surface": "#2a3043",
+                      "secondary": "#ffffff",
+                      "surface": "#0c1324",
+                      "secondary-fixed": "#00fbfb",
+                      "on-secondary-fixed-variant": "#004f4f",
+                      "surface-variant": "#2e3447",
+                      "outline-variant": "#454653",
+                      "primary": "#bfc2ff",
+                      "on-primary-container": "#7981f5",
+                      "tertiary-container": "#16263a",
+                      "surface-container": "#191f31",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "inverse-primary": "#4951c3",
+                      "error": "#ffb4ab",
+                      "surface-container-high": "#23293c",
+                      "on-secondary-fixed": "#002020",
+                      "surface-tint": "#bfc2ff",
+                      "surface-dim": "#0c1324",
+                      "secondary-fixed-dim": "#00dddd",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "surface-container-low": "#151b2d",
+                      "on-secondary": "#003737",
+                      "on-background": "#dce1fb",
+                      "on-surface": "#dce1fb",
+                      "surface-container-lowest": "#070d1f",
+                      "primary-fixed": "#e0e0ff",
+                      "on-error-container": "#ffdad6",
+                      "on-error": "#690005",
+                      "on-surface-variant": "#c6c5d5",
+                      "background": "#0c1324",
+                      "inverse-surface": "#dce1fb",
+                      "surface-container-highest": "#2e3447",
+                      "on-tertiary": "#213145",
+                      "primary-container": "#00008b",
+                      "on-primary": "#141994"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-tablet": "32px",
+                      "margin-mobile": "16px",
+                      "unit": "8px",
+                      "container-max": "1440px",
+                      "margin-desktop": "64px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Sora"],
+                      "display-md": ["Sora"],
+                      "label-sm": ["Geist"],
+                      "display-lg": ["Sora"],
+                      "label-md": ["Geist"],
+                      "body-md": ["Inter"],
+                      "headline-lg-mobile": ["Sora"],
+                      "body-lg": ["Inter"],
+                      "headline-lg": ["Sora"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                      "display-md": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
+<div class="flex items-center gap-12">
+<a class="font-display-md text-display-md font-bold tracking-tighter text-secondary-fixed" href="#">CINESTREAM</a>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant hover:text-secondary font-medium transition-colors font-body-md text-body-md" href="#">Home</a>
+<a class="text-on-surface-variant hover:text-secondary font-medium transition-colors font-body-md text-body-md" href="#">Movies</a>
+<a class="text-secondary-fixed font-bold border-b-2 border-secondary-fixed pb-1 font-body-md text-body-md" href="#">TV Shows</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-surface-variant/30 border border-outline-variant/30 rounded-full py-2 pl-10 pr-4 w-64 focus:outline-none focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed transition-all text-sm" placeholder="Search shows..." type="text"/>
+</div>
+<button class="bg-secondary-fixed text-on-secondary-fixed px-6 py-2 rounded-full font-bold hover:scale-105 transition-transform duration-200">Login</button>
+</div>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[80vh] overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida/AP1WRLtZaEPaPBSitw1Cp6QfAqLOP3lrOubGudzYYegSLhzh1DGbbQA0rdOXJ4sSEONzQblptO_BUV09OhKOfZG67vuPVARs3beWNd1gBORg03EvbMtfdN4fiMX9qzJ8hVd-OEW-7_MwDHsNT2JURE0tOQf5hL74mD262B3LsLu__adVuDysIoG_xpc0GfobOQZBeR3agPnOMupNxaIRSKkEguaRhwHEKnp4859c7wlxX2Gd1i0IDsHomjQzyg');"></div>
+<div class="absolute inset-0 vignette-gradient"></div>
+<div class="absolute inset-0 vignette-bottom"></div>
+<div class="relative h-full flex flex-col justify-center px-margin-desktop max-w-container-max mx-auto">
+<div class="max-w-2xl space-y-6">
+<div class="flex items-center gap-4">
+<span class="bg-secondary-fixed/20 text-secondary-fixed px-3 py-1 rounded text-label-sm font-label-sm">NEW SEASON</span>
+<span class="flex items-center gap-1 text-label-md font-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span> 9.2 Rating
+                        </span>
+</div>
+<h1 class="font-display-lg text-display-lg leading-tight">NEON <br/> NIGHTMARE</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">In a rain-slicked future where memories are traded like currency, one detective uncovers a conspiracy that spans the entire galaxy's neural network.</p>
+<div class="flex items-center gap-4 pt-4">
+<button class="bg-secondary-fixed text-on-secondary-fixed px-8 py-4 rounded-lg font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+                            Watch Now
+                        </button>
+<button class="glass-panel text-white px-8 py-4 rounded-lg font-bold flex items-center gap-2 hover:bg-surface-variant/50 transition-all">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+                            More Info
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Sections -->
+<div class="px-margin-desktop max-w-container-max mx-auto -mt-32 relative z-10 space-y-16 pb-24">
+<!-- Trending Row -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-headline-lg text-headline-lg">Trending Now</h2>
+<a class="text-secondary-fixed hover:underline text-label-md font-label-md flex items-center gap-1" href="#">View All <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span></a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<!-- Movie Card 1 -->
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[2/3] rounded-xl overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A cinematic movie poster for a dark sci-fi TV series called 'Chronos'. The image features a lone figure standing before a massive, glowing blue portal in a futuristic, industrial environment. Atmospheric smoke and amber lighting create a high-contrast, moody aesthetic consistent with a premium streaming platform's dark mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbtxruiXeMWw7EcEyoS70fpw7mz7z_1xiIk32vQ-UC6hwSoBV3MWvciBGYYRfwd52tl3FuzBvbRD4LBqPtdfZ0rwriDp8WtjYR-n90DDUQbv60Q9dug0ZkrdZ6KceTs-ljxxutAAGvOUGdjzgiLTghZSAImoPavDf4e5ouVzkDmCo7Fo8F8fK2yI2X-YQpl0wPQSsn9pymLaHEZkoH4QQRi6PL_O_g4rxHPOPGnwnq_6-frWSaHEE7nMyeWNpaGIiwBmuKYLbZdlI"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<div class="w-16 h-16 rounded-full glass-panel flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">The Last Frontier</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2024 • 3 Seasons</p>
+</div>
+</div>
+<!-- Repeating pattern for TV cards -->
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[2/3] rounded-xl overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A professional TV show cover art for a mystery drama titled 'Shadow Protocol'. The visual showcases a silhouette of a person in a trench coat walking through a foggy London street at night, illuminated by soft orange streetlamps. The style is cinematic with deep shadows and sharp highlights, fitting a sleek dark-themed UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo-jHz98VkQP07ealCMZAleqFbQbmePLmidpzM8_V8YpPGlrIoNpXJYCy9H6sTPlmsEbheg76V8revukVth8YBHyZxjPS8jjS4RzPedAaItdNh5XiP0Lkr0sDacRwjucYrKVl4NjGW7OHA-NJuX0z6GM2loTFFbNZprIhnf7jBXYn9xSte5cMoEZnhABgK7tQWz88QlYy5Ha0gWWcraB78ub2yopbl85qYbHAeG-KladLQIYo7KSNltwPf6JH5sPMQ45NMVaRdhqg"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<div class="w-16 h-16 rounded-full glass-panel flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Shadow Protocol</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2023 • 1 Season</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[2/3] rounded-xl overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Dramatic TV series thumbnail for 'Neural Link'. A close-up of a human eye with digital circuitry patterns reflected in the iris. The color scheme is deep indigo and electric cyan. The lighting is sterile and clinical, evoking a sense of high-tech dystopia suitable for a cinematic entertainment application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIHFpEj_3PeoebjBSWpJoexEsVCLFWfHyDYnpQqoycE3boEoPov-hhUmKQ3Ts0QRl27rUdeP7B20oAx2foyrs600t18N7zcSE9NuX8nhdbc0Diiik2YPHKDfJ0lsLN5Yi-XuImUBd2HYBfhS6xSqWYI6_ZcJYG1cBGkcn13sD0W-WWaC4WlZQ7pt3MTzr3YIjKls0Ugqp39uaBI9MWg03pBE5r-Miova74Yn-7GCpSBu82cXxvsKghyS701Y9Lx4S68QlIGD-iF_c"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<div class="w-16 h-16 rounded-full glass-panel flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Neural Link</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2024 • 2 Seasons</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[2/3] rounded-xl overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Action-packed TV series artwork for 'Echo Valley'. A rugged mountain range during a fierce thunderstorm, with purple lightning bolts illuminating the peaks. The style is epic and grand, emphasizing nature's power with a cinematic color grade that complements a dark slate and navy UI environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2wM0neMQ_Vu-XJTY4IgS8Cw44A-KjJpHNOV9ZCqP75OPek1feiS0uX1mVI1n6Yp8X2R3jKu6cwb4AvU9JItADt75IeoZxtyaNO7GidOhlMifan2akFJFOqraTAIfemvTJQp7h_scXYnWSJSVkkxxIjF1-nZVIe3lZr_qXZCSOw5O_7HyODL9Gh9Zzy3eet6X2rkyUNltQO9XPoMwotJSM6MYi-_qedqNAABDOna3HDMsb7Oud44j2B58E8V0AJT6vnoZ7hZapnqI"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<div class="w-16 h-16 rounded-full glass-panel flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Echo Valley</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2022 • 4 Seasons</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[2/3] rounded-xl overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="High-fidelity promotional image for a historical drama 'Empire of Sand'. Vast desert dunes at golden hour with a lone rider on horseback silhouetted against a giant setting sun. Rich textures of sand and sun-flare effects give it a premium, high-budget cinematic feel for a streaming service." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlKUWDKDSsx3TIcwPaGYyIHoLBHx2z1fJ9SO_Dl382xDY4kAGf05w4TCPthqra5fEZt9IZFWGRDlU-3qYFS3h1CXTi5L9WCfj3VvewebE9saAomYzVHLDN2tMxP-LDOYd5HZi8nHqEtYFlldfEAc_Axp-Kr7MGSo600hnt-06qEeZ9BhqmW4AG-R63Fbwl96MF7_oPZsKlnlV4_Trscb4q9P-N3x4--jjC8FK5_G__Xhxdpgt_-HZXToFsqmo9jOy90i1delOtxDY"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<div class="w-16 h-16 rounded-full glass-panel flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Empire of Sand</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2023 • 1 Season</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[2/3] rounded-xl overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Sleek crime thriller poster for 'Redline'. A close-up of a high-performance sports car's glowing red tail lights reflected in a wet asphalt road at night. The lighting is vibrant and neon, set against deep black surroundings to create an immersive, atmospheric look for a cinematic app UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMTrC254GGu8rf2HE93YByskD4qC07N_vXCcBIIf2JA_35nd8BV6gCOLK0V49z9VRh4aobp8mWo-tW6CneqpAElcuE-JcKOi2I7hwjihQ5JacbALHqLSsSFd-WCVf8J_JPpNSgWSUnMp8e8umrDA45XiY7M91gOs4FDC50KDLxn7dgK25Vt5QoNIkbt5d_F1_3GwXoXNIcvkgmXJ4NebboBgzbyFjNgGfsFMCgnyCoT5OI7bxZUEOS4E-zIDUc4VyMF3QZEGqU1s0"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<div class="w-16 h-16 rounded-full glass-panel flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed" data-icon="play_circle" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Redline</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2024 • 2 Seasons</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Originals - Asymmetric Grid -->
+<section>
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-lg text-headline-lg">CINESTREAM Originals</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Hand-picked premium series available only here.</p>
+</div>
+</div>
+<div class="grid grid-cols-12 grid-rows-2 gap-6 h-[600px]">
+<div class="col-span-8 row-span-2 group relative overflow-hidden rounded-2xl cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="An epic cinematic still for an original TV show 'The Nexus'. A futuristic space station orbiting a giant gas giant planet with glowing rings. The lighting is dominated by violet and cyan hues, with high-fidelity textures on the station's hull. The composition is expansive and grand, creating a sense of scale and wonder for a premium streaming experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD84I2YJQa8qlZ806jukmnG2Sojme9sT5GPBrdv0k7X8ya-X6lKhTUYr12rZ_DBZz1ZRP2sgJhcbln4-r9c6P7fNQodtta_mHV0C_BFPiOlzY4_oAiU1US174_xgOjzYo0O1lHF5OQ5a63uJLnWCg4tiiJD2G3HT_MviZ_uKpYe4kBRmrkW5ogVeXMfUZJyNwsLWdxTYLTJ03hHCCUxNJPrLSIQrbwLmrH4LYLE8_9ONB6fdXh127oRsWh3fzHDzUiWM2fVrtssyPQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-8 left-8 space-y-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded text-label-sm font-label-sm">ORIGINAL SERIES</span>
+<h3 class="text-4xl font-bold font-display-md">The Nexus</h3>
+<p class="text-on-surface-variant max-w-lg">Humanity's last outpost faces a choice that will change the galaxy forever.</p>
+<button class="mt-4 bg-white text-black px-6 py-2 rounded font-bold flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span> Watch S1
+                            </button>
+</div>
+</div>
+<div class="col-span-4 row-span-1 group relative overflow-hidden rounded-2xl cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Promotional graphic for 'Neon Streets'. A vibrant cyberpunk cityscape with towering skyscrapers and glowing holographic advertisements. The rain-slicked streets reflect the neon lights in a kaleidoscope of colors. High-contrast, futuristic, and immersive visual style consistent with high-end digital entertainment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtT61bvi75enFdgP5NEeffvwWu2bEP6xIa54zRTreXrTZADAruogHU4VspkXPmZXy_Z_Oa_vj-f_r6SkPDwvur6QYhkhHzh4H6-TAP4mt1oeuznXSKB58xhgMg5PKGc414GV_Gk3ltPZM7xvkH-VDhG4en67lxjVi2LuiG0EOTE4yxap7yZhdI3TMHTLybygOhfnm3OZAAigraohtZfSobXMeiqnPcJA922h_r9He1TSnCn1dfmYijnjLMPYCQGN5-BXySJCYD5zg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<h3 class="text-xl font-bold">Neon Streets</h3>
+</div>
+</div>
+<div class="col-span-4 row-span-1 group relative overflow-hidden rounded-2xl cursor-pointer">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Cover art for the TV show 'Deep Sea'. An underwater shot of a diver exploring a glowing bioluminescent coral reef in the deep ocean. Dark blue and neon green color palette. The lighting is ethereal and mysterious, creating a sense of peaceful tension perfect for a documentary or drama series thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuaDXZQOR2uQ8F5III1FHmEPul18uwwaphDtcGEtZpxD9ff74CjMR-9eb56sF2Jd-zBcyMLAWgu0KYWY1gDF6VbCXW3AprDdMsvX6QQnBX3vhO2g1_SL9ZnFjx1It-BHL23AOYktWBYYLWa6cyS8Jg81QfdkA4lk72bHTPBRkIvijwCUDXyPnqo5vzLpo6BgUGJEA7hFKfuvIRVLDMx4ZzUD57CexEvM0z4yxrc-vyDqgw4Vnwb9uzVydzUcXSvRq0b_McmbfMuXY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<h3 class="text-xl font-bold">Deep Sea</h3>
+</div>
+</div>
+</div>
+</section>
+<!-- Documentaries Row -->
+<section>
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-headline-lg text-headline-lg">Documentaries</h2>
+<a class="text-secondary-fixed hover:underline text-label-md font-label-md flex items-center gap-1" href="#">View All <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span></a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<!-- Doc Card 1 -->
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[16/9] rounded-lg overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A breathtaking landscape shot for a documentary 'Apex'. Snowy mountain peaks silhouetted against a brilliant morning sky. The colors are crisp and natural, with high dynamic range. This image represents high-quality factual content within a premium streaming interface's documentary section." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADf0SPBObPF3I50eZP3vaHL0pwLqi09lzLEpf9V_Q2n8eU95egTEpYM4xjdXaPSRgtP9tiRaxVw31apqVXSD40HYOZMegD2NjQ_SSdrPU2mSaQKZ5QffiUwm90Z7R4e5BGRFVDwUrVLD2-_5QR8VoVuUah8qnRWzw1wTuv8gUNqo7r4G4tFZW9NnRbDCutDht5dU4U-9Ma1ItjJq5l8YAwTmtD5B8t9nMdyp8U0QGFtX3M9n9G3ZyKAAXvloc3g7qOeMikwu4Duec"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Apex: The Peak</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2024 • Documentary</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[16/9] rounded-lg overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Stunning aerial view of a dense forest for 'Green World'. The sunlight filters through the canopy, creating beautiful god-rays and highlighting different shades of emerald and olive. A peaceful, cinematic documentary thumbnail that fits the high-end aesthetic of the CINESTREAM platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLINK4MVfZysmW9osbVG1nCrvvgA4yGg2AdAGvNuWep73mY__qtELYqan9zRgSE038PTYxaJCeKIs0BGo3OQI38oLETiI2CScm7LNJIZi55HIAmMuDZjGssguw_OWdVce3058D58HAbt-LiDvILZ79p4QKIpnDxbAwFWPVW-ZArBqV_mAdEgBzRaievgRFI7Zp7mndD1Mms5VWXcaWYjSE6vKdDOEXLDWHS-MOl83RK4hsNkZnHl9iPiY6YKi4XCEGhrQ0PpIyn4w"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Green World</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2023 • Documentary</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[16/9] rounded-lg overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A microscopic view of colorful cells for 'Hidden Life'. The image is vibrant with purples, pinks, and blues, showing intricate structures in high detail. This scientific documentary art piece provides a high-contrast pop within the dark theme of the UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcCrzLUSnviV3fvlntpT3Sv0r0W5uC1V2fsuJn1awcKa0H5GMDyjMZVSXvCyodoql7NWpVgI_RXPDz-OdO_S1zA3X__JPu_ZRFeVkk3H__hnyVM3HBpMkpnQvZCr7e8NvdlZlJrzfnBi_ojoV7FFzJ9jgEuTS6xyh-KVwFfJPybDOxjenQ8eloeHeZTlnpegap6Q6sAfWr6ZS_nFZV03KLppuulIKxxDt5vqRyw5c58veEsign4wFSMdxxLzjLoXK6sKQrX7ye1dM"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Hidden Life</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2024 • Documentary</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[16/9] rounded-lg overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A spectacular image of a distant nebula for 'Cosmos'. Swirls of orange, blue, and violet gas clouds are dotted with bright stars. The deep space aesthetic is majestic and grand, perfectly aligned with the cinematic visual identity of CINESTREAM." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtYhlxIWJqw9ZeNF5GcMwkokNHEDz-ZaLPEooPzrQLKRpVslqTKAVfeA_wFejhPWLCmk9vTwK8gYx7NqBUsS4Ubr7NSLWZWdoWiyJiuSmPlxNZYEWhhhGtExIs4NKhpQ14Kwz_khrY9wCBai6Q5YkBDc7_jKGTtaAelf127w7KgQWiZobjf70TRV4Lwdh7z0N0NkKf1zcJQkqY4PhJf_WM-N9tBPJEZ2vL5LoeMj9ucHAOUv9i4JrJO25pk3o6AKmj57Wz_UuCMg4"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Cosmos</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2022 • Limited Series</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[16/9] rounded-lg overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Sunlight breaking through tall trees in a redwood forest for 'Ancient Giants'. The lighting is warm and golden, creating a serene and awe-inspiring documentary thumbnail. High fidelity and professional composition for an immersive UI experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSDhM8Z5zCZXrhJDJw-DysOqwnjd81Zs8ZGJsioP_WDI-UtMgoZzCOIv-aPjldorek7lDGnot8Ak4LhoIX00Pih54UAF0U19FWMjsrmhEm7bkeby_HePDJ2uTTiY8I1RB__q6DvDMo2FQirqXS66Mr3Bihi4RYA06EbcMzDkoM0rSmScvdoNQ06HVGKdIWO_fosWKEyll53RxDDr-YkhZEnrzp-LAnyBuJAoxUv1F7hwvYSLplPv8fdrJDvq7ulyMgIqT33ZjABGs"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Ancient Giants</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2023 • Documentary</p>
+</div>
+</div>
+<div class="group relative space-y-3 cursor-pointer">
+<div class="aspect-[16/9] rounded-lg overflow-hidden relative movie-card-glow transition-all duration-300">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A detailed shot of a city's micro-movements for 'Urban Pulse'. Time-lapse photography of light trails from cars on a busy highway at night. High-contrast neon colors against a dark urban backdrop, fitting the sleek cinematic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMezQS-dQQJnVe-W6zVvRk11jZCLORxMIQ8ImWM00t1v9X9dmCuaoW3ZUtUSiOQ3b3QtWfG8ZjXRAW37xtmxalUlAhsUdVTm15XF4py_5uzVh3Y_mwDiNb3WoAXge8R2bVfnPlKY4dE0SJvQBDENGtY1VQvZF-QMWq1Ma7ZDZaWWpGWgOpRgMBoIYhiofC9svNsAwxj3e5RIXvL1yv5UekE4b2CKeSlZzW6PoJOSsFohsJbv3-qfK6mKVqA7xQPMUGOoyk99bw9iA"/>
+</div>
+<div>
+<h3 class="font-label-md text-label-md truncate">Urban Pulse</h3>
+<p class="text-on-surface-variant font-label-sm text-label-sm">2024 • Documentary</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/10 w-full py-16">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop max-w-container-max mx-auto">
+<div class="space-y-4">
+<a class="font-headline-md text-headline-md font-bold text-secondary-fixed" href="#">CINESTREAM</a>
+<p class="text-on-surface-variant font-body-md text-body-md pr-8">The ultimate destination for premium entertainment, cinematic experiences, and exclusive originals.</p>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-secondary-fixed">Explore</h4>
+<ul class="space-y-2 text-on-surface-variant font-label-sm text-label-sm">
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Home</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Movies</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">TV Shows</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Latest Releases</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-secondary-fixed">Support</h4>
+<ul class="space-y-2 text-on-surface-variant font-label-sm text-label-sm">
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Help Center</a></li>
+<li><a class="hover:text-secondary-fixed transition-colors" href="#">Contact Us</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-secondary-fixed">Follow Us</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-all" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-all" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+<a class="w-10 h-10 rounded-full glass-panel flex items-center justify-center hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-all" href="#"><span class="material-symbols-outlined">share</span></a>
+</div>
+</div>
+</div>
+<div class="mt-16 text-center text-on-surface-variant font-label-sm text-label-sm opacity-60">
+            © 2024 CINESTREAM. All rights reserved.
+        </div>
+</footer>
+<script>
+        // Smooth scroll implementation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('bg-surface/90');
+                header.classList.remove('bg-surface/60');
+            } else {
+                header.classList.add('bg-surface/60');
+                header.classList.remove('bg-surface/90');
+            }
+        });
+    </script>
+</body></html>

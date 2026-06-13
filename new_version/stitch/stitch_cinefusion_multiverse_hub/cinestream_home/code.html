@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="it"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CINESTREAM - Il Tuo Universo Cinematografico</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500&family=Geist:wght@500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Inter:wght@100..900&family=Sora:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "error": "#ffb4ab",
+                "on-secondary-container": "#007070",
+                "inverse-on-surface": "#2a3043",
+                "on-primary-fixed-variant": "#3037aa",
+                "tertiary-container": "#16263a",
+                "secondary": "#ffffff",
+                "primary-container": "#00008b",
+                "on-primary": "#141994",
+                "primary-fixed": "#e0e0ff",
+                "on-tertiary": "#213145",
+                "secondary-container": "#00fbfb",
+                "surface-bright": "#33394c",
+                "surface-container-highest": "#2e3447",
+                "outline": "#908f9f",
+                "surface-container-lowest": "#070d1f",
+                "secondary-fixed": "#00fbfb",
+                "on-surface-variant": "#c6c5d5",
+                "tertiary": "#b7c8e1",
+                "surface-container": "#191f31",
+                "surface": "#0c1324",
+                "on-tertiary-fixed-variant": "#38485d",
+                "inverse-primary": "#4951c3",
+                "surface-dim": "#0c1324",
+                "surface-container-low": "#151b2d",
+                "on-secondary-fixed": "#002020",
+                "on-tertiary-container": "#7d8da5",
+                "on-error-container": "#ffdad6",
+                "on-primary-container": "#7981f5",
+                "background": "#0c1324",
+                "on-secondary": "#003737",
+                "secondary-fixed-dim": "#00dddd",
+                "tertiary-fixed": "#d3e4fe",
+                "on-background": "#dce1fb",
+                "on-surface": "#dce1fb",
+                "inverse-surface": "#dce1fb",
+                "error-container": "#93000a",
+                "surface-variant": "#2e3447",
+                "surface-tint": "#bfc2ff",
+                "on-primary-fixed": "#00006e",
+                "on-secondary-fixed-variant": "#004f4f",
+                "on-tertiary-fixed": "#0b1c30",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "primary": "#bfc2ff",
+                "on-error": "#690005",
+                "surface-container-high": "#23293c",
+                "outline-variant": "#454653",
+                "primary-fixed-dim": "#bfc2ff"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "margin-desktop": "64px",
+                "margin-mobile": "16px",
+                "container-max": "1440px",
+                "unit": "8px",
+                "margin-tablet": "32px",
+                "gutter": "24px"
+            },
+            "fontFamily": {
+                "headline-lg-mobile": ["Sora"],
+                "body-md": ["Inter"],
+                "display-md": ["Sora"],
+                "body-lg": ["Inter"],
+                "headline-md": ["Sora"],
+                "headline-lg": ["Sora"],
+                "label-md": ["Geist"],
+                "label-sm": ["Geist"],
+                "display-lg": ["Sora"]
+            },
+            "fontSize": {
+                "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "display-md": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .vignette-overlay {
+            background: linear-gradient(to right, rgba(12, 19, 36, 0.95) 0%, rgba(12, 19, 36, 0.4) 50%, rgba(12, 19, 36, 0.1) 100%),
+                        linear-gradient(to top, rgba(12, 19, 36, 1) 0%, rgba(12, 19, 36, 0) 40%);
+        }
+        .glass-card {
+            backdrop-filter: blur(20px);
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(30, 41, 59, 0.5);
+        }
+        .cyan-glow {
+            box-shadow: 0 0 20px rgba(0, 251, 251, 0.3);
+        }
+        @media (max-width: 768px) {
+            .vignette-overlay {
+                background: linear-gradient(to top, rgba(12, 19, 36, 1) 10%, rgba(12, 19, 36, 0.5) 60%, rgba(12, 19, 36, 0.2) 100%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-secondary-fixed selection:text-on-secondary-fixed overflow-x-hidden font-body-md">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-transparent backdrop-blur-xl">
+<nav class="flex justify-between items-center px-4 md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-secondary-fixed font-headline-md text-headline-md" style="font-variation-settings: 'FILL' 1;">movie_filter</span>
+<span class="font-display-md text-headline-md font-bold tracking-tighter text-secondary-fixed uppercase">CINESTREAM</span>
+</div>
+<!-- Desktop Nav Items -->
+<div class="hidden md:flex items-center gap-8">
+<a class="font-label-md text-label-md text-secondary-fixed border-b-2 border-secondary-fixed pb-1 transition-colors duration-300" href="#">Home</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">Movies</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary-fixed transition-colors duration-300" href="#">TV Shows</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-secondary-fixed hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="hidden md:block px-6 py-2 bg-secondary-fixed text-on-secondary-fixed rounded-xl font-label-md text-label-md hover:scale-105 transition-all duration-200 cyan-glow">
+                    Accedi
+                </button>
+</div>
+</nav>
+</header>
+<!-- Main Content Canvas -->
+<main class="relative min-h-screen w-full flex flex-col justify-center overflow-hidden">
+<!-- Full-screen Background -->
+<div class="absolute inset-0 z-0">
+<img alt="CINESTREAM Hero Background" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqYIwuslWF8_8n6qvouICvpCYI6kUzRatdsgGi5IQ5PkAXMn-6dgk5qq4ClMNe3OtqfWCgzNc5upHqMZgI3v7Hs1_J2jDM0DOcQHMr0lnmoCh2_BhF38CcOP7Uk9hKCFa3SbxlmnYx5jm434rDxHBc-8ZCESPxOKeDo2HkyurPB8Igu394G5NljyX_lJinOPIFT41zg47XscZtySnkvXQHlfCVgcjQAR_iOZ-pFO34NCpRXFoNQpLa-1vVjzrYXsBDJqa1Z_wVKtw"/>
+<div class="absolute inset-0 vignette-overlay"></div>
+</div>
+<!-- Hero Content Section -->
+<div class="relative z-10 w-full max-w-container-max mx-auto px-4 md:px-margin-desktop pt-20">
+<div class="max-w-2xl flex flex-col items-start gap-6 md:gap-8 animate-fade-in">
+<!-- Premium Metadata Tag -->
+<div class="flex items-center gap-3 px-3 py-1 bg-secondary-container/10 border border-secondary-fixed/30 rounded-full">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-secondary-fixed tracking-widest uppercase">Streaming in 8K Ultra HD</span>
+</div>
+<!-- Main Headline -->
+<h1 class="font-display-lg text-display-lg md:text-display-lg text-white leading-tight">
+                    Il Tuo <span class="text-secondary-fixed">Universo</span> Cinematografico
+                </h1>
+<!-- Subtext -->
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg leading-relaxed">
+                    Esplora i migliori film e serie TV in un'esperienza immersiva unica. Sincronizza i tuoi dispositivi e perdi il confine tra realtà e finzione.
+                </p>
+<!-- Primary CTA Cluster -->
+<div class="flex flex-col sm:flex-row items-center gap-4 mt-4 w-full sm:w-auto">
+<button class="w-full sm:w-auto px-10 py-4 bg-secondary-fixed text-on-secondary-fixed rounded-xl font-label-md text-label-md font-bold uppercase tracking-widest hover:scale-105 transition-all duration-300 cyan-glow">
+                        Inizia Ora
+                    </button>
+<button class="w-full sm:w-auto px-8 py-4 border border-outline-variant text-white rounded-xl font-label-md text-label-md hover:bg-white/5 transition-all duration-300 backdrop-blur-sm">
+                        Scopri Catalogo
+                    </button>
+</div>
+</div>
+<!-- Floating Featured Content (Asymmetric Layout) -->
+<div class="hidden lg:flex absolute right-margin-desktop bottom-24 items-end gap-6">
+<div class="glass-card p-6 rounded-2xl w-64 translate-y-8 hover:translate-y-0 transition-transform duration-500">
+<div class="aspect-[16/9] bg-surface-container rounded-lg mb-4 overflow-hidden relative group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="A cinematic widescreen shot of a futuristic neon-lit city at night during a heavy rainstorm. Cyberpunk aesthetics with intense cyan and magenta highlights reflecting off wet pavement. High-contrast lighting and a moody, atmospheric science fiction vibe that complements the premium CineStream brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0b7SUn-Ohlixwz4ReaZS6jS-pYUCxnhQmX4Po5XW0JLwzbge39XxHF5pHG-B5bVsgwhNmrGbr2wyJHlZ0UaKwoIcV7pE8uSNzHA_lPeoapGaNWBHGT21jSXyvrlWKh5JB5j5EWlN-OX11FQZyZvsY1fbwOuMTB9d8HmO8nKHQ8bzXuquU_p0MtXPeHkiH5p7yoh5ajvgfJq5Qr5vd0rwHzGcUOPEPHxlgh5jZ6N6gA__yMkWDwDtAvBwuMzqJ_KftdbJrEOIJZAM"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-background/40">
+<span class="material-symbols-outlined text-4xl text-secondary-fixed">play_circle</span>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-tighter">In Primo Piano</p>
+<h3 class="font-headline-md text-[18px] text-white">Oltre l'Orizzonte</h3>
+</div>
+<div class="glass-card p-4 rounded-2xl w-48 hover:translate-y-[-10px] transition-transform duration-500">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary-fixed">trending_up</span>
+</div>
+<span class="font-label-sm text-label-sm text-secondary-fixed">+254 Nuovi Titoli</span>
+</div>
+<p class="font-body-md text-xs text-on-surface-variant">Aggiunti questa settimana per i membri Premium.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Visible on Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-xl bg-surface-container/60 backdrop-blur-2xl border-t border-outline-variant/20 shadow-lg shadow-secondary-fixed/5">
+<div class="flex justify-around items-center px-4 py-3">
+<a class="flex flex-col items-center justify-center text-secondary-fixed bg-secondary-container/10 rounded-xl p-2 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/40 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">movie</span>
+<span class="font-label-sm text-label-sm mt-1">Movies</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-variant/40 transition-all scale-95 active:scale-90" href="#">
+<span class="material-symbols-outlined">live_tv</span>
+<span class="font-label-sm text-label-sm mt-1">TV Shows</span>
+</a>
+</div>
+</nav>
+<script>
+        // Smooth hover micro-interactions
+        document.querySelectorAll('button, a').forEach(elem => {
+            elem.addEventListener('mouseenter', () => {
+                elem.style.transform = 'scale(1.02)';
+            });
+            elem.addEventListener('mouseleave', () => {
+                elem.style.transform = 'scale(1)';
+            });
+        });
+
+        // Simple entrance animation trigger
+        window.addEventListener('DOMContentLoaded', () => {
+            const heroContent = document.querySelector('.animate-fade-in');
+            heroContent.style.opacity = '0';
+            heroContent.style.transform = 'translateY(20px)';
+            heroContent.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+            
+            setTimeout(() => {
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
+            }, 300);
+        });
+    </script>
+</body></html>

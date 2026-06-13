@@ -3,7 +3,8 @@ from pathlib import Path
 from flask import Flask, render_template, request, Response, abort
 
 app = Flask(__name__)
-VIDEO_FOLDER = Path("video")
+BASE = Path(__file__).resolve().parent.parent
+VIDEO_FOLDER = BASE / "video"
 
 def get_categories():
     if not VIDEO_FOLDER.exists():
@@ -27,7 +28,8 @@ def get_categories():
 @app.route("/")
 def index():
     categories = get_categories()
-    return render_template("index.html", categories=categories)
+    total = sum(len(v) for v in categories.values())
+    return render_template("index.html", categories=categories, total_videos=total)
 
 @app.route("/video/<path:filename>")
 def stream_video(filename):
@@ -81,4 +83,4 @@ def stream_video(filename):
     return resp
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5001)
