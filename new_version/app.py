@@ -12,24 +12,58 @@ def get_categories():
     categories = {}
     for entry in sorted(VIDEO_FOLDER.iterdir(), key=lambda e: e.name.lower()):
         if entry.is_dir():
-            videos = sorted(
-                ({"name": f.name, "path": f"{entry.name}/{f.name}"}
-                 for f in entry.iterdir()
-                 if f.suffix.lower() == ".mp4"),
-                key=lambda v: v["name"].lower()
-            )
-            categories[entry.name] = videos
+            cat = {"videos": [], "subcategories": {}}
+            for f in sorted(entry.iterdir(), key=lambda e: e.name.lower()):
+                if f.is_dir():
+                    sub_videos = sorted(
+                        ({"name": v.name, "path": f"{entry.name}/{f.name}/{v.name}"}
+                         for v in sorted(f.iterdir(), key=lambda e: e.name.lower())
+                         if v.suffix.lower() == ".mp4"),
+                        key=lambda v: v["name"].lower()
+                    )
+                    if sub_videos:
+                        cat["subcategories"][f.name] = sub_videos
+                elif f.suffix.lower() == ".mp4":
+                    cat["videos"].append(
+                        {"name": f.name, "path": f"{entry.name}/{f.name}"}
+                    )
+            categories[entry.name] = cat
         elif entry.suffix.lower() == ".mp4":
-            categories.setdefault("Generale", []).append(
-                {"name": entry.name, "path": entry.name}
-            )
+            cat = categories.setdefault("Generale", {"videos": [], "subcategories": {}})
+            cat["videos"].append({"name": entry.name, "path": entry.name})
     return categories
+
+def total_videos(categories):
+    t = 0
+    for cat in categories.values():
+        t += len(cat["videos"])
+        for sub in cat["subcategories"].values():
+            t += len(sub)
+    return t
 
 @app.route("/")
 def index():
     categories = get_categories()
-    total = sum(len(v) for v in categories.values())
-    return render_template("index.html", categories=categories, total_videos=total)
+    return render_template("index.html", categories=categories, total_videos=total_videos(categories))
+
+@app.route("/categoria/<category_name>")
+def view_category(category_name):
+    categories = get_categories()
+    cat = categories.get(category_name)
+    if not cat:
+        abort(404)
+    return render_template("category.html", category_name=category_name, category=cat, categories=categories, total_videos=total_videos(categories))
+
+@app.route("/categoria/<category_name>/<subcategory_name>")
+def view_subcategory(category_name, subcategory_name):
+    categories = get_categories()
+    cat = categories.get(category_name)
+    if not cat:
+        abort(404)
+    sub = cat["subcategories"].get(subcategory_name)
+    if sub is None:
+        abort(404)
+    return render_template("category.html", category_name=category_name, subcategory_name=subcategory_name, category={"videos": sub, "subcategories": {}}, categories=categories, total_videos=total_videos(categories))
 
 @app.route("/video/<path:filename>")
 def stream_video(filename):

@@ -1,231 +1,72 @@
-<!DOCTYPE html>
-<html class="dark" lang="it">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>CINESTREAM - Server Film</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Inter:wght@400;500&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: { extend: {
-      "colors": {
-        "primary-fixed-dim": "#bfc2ff",
-        "on-tertiary-container": "#7d8da5",
-        "on-primary-fixed": "#00006e",
-        "surface-bright": "#33394c",
-        "tertiary": "#b7c8e1",
-        "secondary-container": "#00fbfb",
-        "tertiary-fixed": "#d3e4fe",
-        "on-primary-fixed-variant": "#3037aa",
-        "on-secondary-container": "#007070",
-        "on-tertiary-fixed": "#0b1c30",
-        "error-container": "#93000a",
-        "outline": "#908f9f",
-        "inverse-on-surface": "#2a3043",
-        "secondary": "#ffffff",
-        "surface": "#0c1324",
-        "secondary-fixed": "#00fbfb",
-        "on-secondary-fixed-variant": "#004f4f",
-        "surface-variant": "#2e3447",
-        "outline-variant": "#454653",
-        "primary": "#bfc2ff",
-        "on-primary-container": "#7981f5",
-        "tertiary-container": "#16263a",
-        "surface-container": "#191f31",
-        "tertiary-fixed-dim": "#b7c8e1",
-        "inverse-primary": "#4951c3",
-        "error": "#ffb4ab",
-        "surface-container-high": "#23293c",
-        "on-secondary-fixed": "#002020",
-        "surface-tint": "#bfc2ff",
-        "surface-dim": "#0c1324",
-        "secondary-fixed-dim": "#00dddd",
-        "on-tertiary-fixed-variant": "#38485d",
-        "surface-container-low": "#151b2d",
-        "on-secondary": "#003737",
-        "on-background": "#dce1fb",
-        "on-surface": "#dce1fb",
-        "surface-container-lowest": "#070d1f",
-        "primary-fixed": "#e0e0ff",
-        "on-error-container": "#ffdad6",
-        "on-error": "#690005",
-        "on-surface-variant": "#c6c5d5",
-        "background": "#0c1324",
-        "inverse-surface": "#dce1fb",
-        "surface-container-highest": "#2e3447",
-        "on-tertiary": "#213145",
-        "primary-container": "#00008b",
-        "on-primary": "#141994"
-      },
-      "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-      "spacing": {
-        "margin-tablet": "32px", "margin-mobile": "16px", "unit": "8px",
-        "container-max": "1440px", "margin-desktop": "64px", "gutter": "24px"
-      },
-      "fontFamily": {
-        "headline-md": ["Sora"], "display-md": ["Sora"], "label-sm": ["Geist"],
-        "display-lg": ["Sora"], "label-md": ["Geist"], "body-md": ["Inter"],
-        "headline-lg-mobile": ["Sora"], "body-lg": ["Inter"], "headline-lg": ["Sora"]
-      },
-      "fontSize": {
-        "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
-        "display-md": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-        "label-sm": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
-        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
-        "label-md": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
-        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
-        "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
-        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
-        "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}]
-      }
-    } }
-  }
-</script>
-<style>
-  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; vertical-align: middle; }
-  .glass-card { backdrop-filter: blur(20px); background: rgba(46, 52, 71, 0.6); border: 1px solid rgba(69, 70, 83, 0.2); }
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: #0c1324; }
-  ::-webkit-scrollbar-thumb { background: #454653; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #00fbfb; }
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-  .card-hover-glow:hover { box-shadow: 0 0 30px rgba(0, 251, 251, 0.15); }
-  .video-placeholder {
-    background: linear-gradient(135deg, #191f31 0%, #0c1324 100%);
-    display: flex; align-items: center; justify-content: center;
-    border: 1px solid rgba(69, 70, 83, 0.3);
-  }
-  .video-placeholder .icon { font-size: 48px; color: #454653; }
-  .player-overlay {
-    position: fixed; inset: 0; z-index: 100;
-    background: rgba(0,0,0,0.9);
-    display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px);
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-  .player-overlay.open { opacity: 1; pointer-events: all; }
-  .player-overlay .close-btn {
-    position: absolute; top: 20px; right: 20px;
-    width: 48px; height: 48px; border-radius: 50%;
-    background: rgba(255,255,255,0.1); border: none; color: #fff;
-    font-size: 24px; cursor: pointer; display: flex;
-    align-items: center; justify-content: center;
-    transition: background 0.2s; z-index: 10;
-  }
-  .player-overlay .close-btn:hover { background: rgba(255,255,255,0.25); }
-  .player-overlay video {
-    max-width: 95vw; max-height: 90vh; border-radius: 12px;
-    box-shadow: 0 0 60px rgba(0, 251, 251, 0.1);
-  }
-</style>
-</head>
-<body class="bg-background text-on-surface font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
-<!-- NavBar -->
-<nav class="fixed top-0 w-full z-50 bg-surface/60 backdrop-blur-xl border-b border-outline-variant/20 shadow-sm">
-  <div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
-    <div class="flex items-center gap-3">
-      <span class="material-symbols-outlined text-secondary-fixed text-3xl" style="font-variation-settings: 'FILL' 1;">movie_filter</span>
-      <span class="font-display-md text-display-md font-bold tracking-tighter text-secondary-fixed cursor-pointer">CINESTREAM</span>
-    </div>
-    <div class="flex items-center gap-6">
-      <span class="text-on-surface-variant font-body-md">Server Film</span>
-      <span class="px-3 py-1 bg-secondary-fixed/20 text-secondary-fixed rounded-full text-xs font-bold tracking-widest uppercase">
-        {{ total_videos }} video
-      </span>
+{% extends "base.html" %}
+{% block content %}
+<!-- Hero Section -->
+<section class="relative h-[70vh] w-full overflow-hidden -mt-20">
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1925&auto=format&fit=crop');">
+    <div class="absolute inset-0 vignette-gradient"></div>
+    <div class="absolute inset-0 vignette-bottom"></div>
+  </div>
+  <div class="relative z-10 h-full flex flex-col justify-center px-margin-desktop max-w-container-max mx-auto">
+    <div class="max-w-2xl space-y-6">
+      <div class="flex items-center gap-3">
+        <span class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-3 py-1 rounded tracking-widest uppercase">Server Film</span>
+        <span class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">movie</span>
+          {{ total_videos }} video
+        </span>
+      </div>
+      <h1 class="font-display-lg text-display-lg leading-tight">
+        Il Tuo <span class="text-secondary-fixed">Cinema</span> Personale
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant/90 leading-relaxed max-w-xl">
+        Esplora la tua collezione di film, serie TV e tutorial. Seleziona una categoria per iniziare la visione.
+      </p>
     </div>
   </div>
-</nav>
+</section>
 
-<main class="pt-20">
-  {% for cat_name, cat_videos in categories.items() %}
-  <section class="py-12 px-margin-desktop max-w-container-max mx-auto">
-    <div class="flex items-center gap-3 mb-8">
-      <span class="w-1 h-8 bg-secondary-fixed rounded-full"></span>
-      <div>
-        <h2 class="font-headline-lg text-headline-lg text-secondary">{{ cat_name }}</h2>
-        <p class="text-on-surface-variant font-body-md">{{ cat_videos|length }} video disponibili</p>
-      </div>
+<!-- Category Grid -->
+<section class="py-16 px-margin-desktop max-w-container-max mx-auto">
+  <div class="flex items-center gap-3 mb-12">
+    <span class="w-1 h-10 bg-secondary-fixed rounded-full"></span>
+    <div>
+      <h2 class="font-headline-lg text-headline-lg text-secondary">Categorie</h2>
+      <p class="text-on-surface-variant font-body-md">Sfoglia i tuoi contenuti per categoria</p>
     </div>
-    {% if cat_videos %}
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-gutter">
-      {% for v in cat_videos %}
-      <div class="group cursor-pointer" onclick="openPlayer('{{ v.path }}', '{{ v.name }}')">
-        <div class="aspect-[2/3] rounded-xl overflow-hidden mb-3 card-hover-glow transition-all duration-300 hover:scale-105 video-placeholder relative">
-          <span class="material-symbols-outlined icon">movie</span>
-          <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
-            <span class="material-symbols-outlined text-secondary-fixed text-4xl self-center" style="font-variation-settings: 'FILL' 1;">play_circle</span>
-          </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    {% for cat_name, cat_data in categories.items() %}
+    {% set cat_count = cat_data["videos"]|length + cat_data["subcategories"]|length %}
+    {% set has_sub = cat_data["subcategories"]|length > 0 %}
+    {% set has_videos = cat_data["videos"]|length > 0 %}
+    <a href="/categoria/{{ cat_name }}" class="group block">
+      <div class="glass-card rounded-2xl p-8 card-hover-glow transition-all duration-300 hover:scale-[1.02] h-full">
+        <div class="flex items-center justify-between mb-6">
+          <span class="material-symbols-outlined text-5xl text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">
+            {% if "film" in cat_name.lower() %}movie{% elif "serie" in cat_name.lower() or "tv" in cat_name.lower() %}live_tv{% elif "tutorial" in cat_name.lower() %}school{% else %}folder{% endif %}
+          </span>
+          <span class="px-3 py-1 bg-secondary-fixed/10 text-secondary-fixed rounded-full text-xs font-bold">
+            {% if has_sub %}{{ cat_data["subcategories"]|length }} sottocategorie{% else %}{{ cat_data["videos"]|length }} video{% endif %}
+          </span>
         </div>
-        <h4 class="text-secondary font-bold font-body-md truncate">{{ v.name }}</h4>
+        <h3 class="font-headline-md text-headline-md text-secondary mb-2 group-hover:text-secondary-fixed transition-colors">{{ cat_name }}</h3>
+        <p class="text-on-surface-variant font-body-md">
+          {% if has_sub %}
+            {{ cat_data["subcategories"]|length }} serie disponibili
+          {% elif has_videos %}
+            {{ cat_data["videos"]|length }} video disponibili
+          {% else %}
+            Nessun video disponibile
+          {% endif %}
+        </p>
+        <div class="mt-6 flex items-center gap-2 text-secondary-fixed font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">
+          <span>Esplora</span>
+          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </div>
       </div>
-      {% endfor %}
-    </div>
-    {% else %}
-    <div class="glass-card rounded-xl p-12 text-center">
-      <span class="material-symbols-outlined text-4xl text-on-surface-variant opacity-40 mb-4">video_library</span>
-      <p class="text-on-surface-variant font-body-md">Nessun video in questa categoria</p>
-    </div>
-    {% endif %}
-  </section>
-  {% endfor %}
-</main>
-
-<!-- Player Overlay -->
-<div id="playerOverlay" class="player-overlay">
-  <button class="close-btn" onclick="closePlayer()">
-    <span class="material-symbols-outlined">close</span>
-  </button>
-  <div class="text-center">
-    <h3 id="playerTitle" class="text-secondary font-headline-md mb-4 px-4 truncate max-w-[90vw]"></h3>
-    <video id="player" controls preload="metadata" style="display:none;"></video>
-    <div id="playerPlaceholder" class="text-on-surface-variant font-body-md p-12">
-      Caricamento...
-    </div>
+    </a>
+    {% endfor %}
   </div>
-</div>
-
-<script>
-  const player = document.getElementById("player");
-  const playerOverlay = document.getElementById("playerOverlay");
-  const playerPlaceholder = document.getElementById("playerPlaceholder");
-  const playerTitle = document.getElementById("playerTitle");
-
-  function openPlayer(path, name) {
-    const src = "/video/" + path;
-    if (player.src !== window.location.origin + src) {
-      player.src = src;
-      player.load();
-    }
-    playerTitle.textContent = name;
-    playerOverlay.classList.add("open");
-    player.style.display = "block";
-    playerPlaceholder.style.display = "none";
-    player.play().catch(() => {});
-  }
-
-  function closePlayer() {
-    playerOverlay.classList.remove("open");
-    player.pause();
-  }
-
-  playerOverlay.addEventListener("click", (e) => {
-    if (e.target === playerOverlay) closePlayer();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closePlayer();
-  });
-
-  player.addEventListener("error", () => {
-    player.style.display = "none";
-    playerPlaceholder.style.display = "block";
-    playerPlaceholder.textContent = "Errore nel caricamento del video";
-  });
-</script>
-</body>
-</html>
+</section>
+{% endblock %}
