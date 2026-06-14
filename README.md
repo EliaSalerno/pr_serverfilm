@@ -6,6 +6,7 @@ Web app Flask per navigare e riprodurre video MP4 da una cartella locale, con su
 
 - Python 3.8+
 - Flask
+- FFmpeg (per le thumbnail dei video) — [scarica qui](https://ffmpeg.org/download.html)
 
 ## Installazione
 
@@ -54,6 +55,7 @@ pr_serverfilm/
 │   │   ├── Batwoman/
 │   │   └── Supergirl/
 │   └── tutorial/
+├── .thumbnails/          # Cache delle thumbnail (generato automaticamente)
 ├── .gitignore
 └── README.md
 ```
@@ -66,6 +68,31 @@ Il sistema è completamente dinamico: le categorie vengono generate automaticame
 - Se una categoria contiene **sottocartelle** (es. `serietv/Batwoman/`, `serietv/Supergirl/`), queste diventano **sottocategorie** navigabili con una propria pagina.
 - Le categorie con **file `.mp4` diretti** (es. `film/`, `tutorial/`) mostrano i video in griglia.
 - I file `.mp4` nella radice di `video/` finiscono nella categoria "Generale".
+
+## Thumbnail
+
+Le thumbnail vengono generate automaticamente da FFmpeg estraendo un frame al 20% della durata di ogni video. Le immagini sono cachate nella cartella `.thumbnails/` (creata automaticamente).
+
+Se FFmpeg non è installato, le thumbnail non vengono generate e viene mostrata un'icona come placeholder.
+
+### Installare FFmpeg
+
+**Windows** (con winget):
+```bash
+winget install FFmpeg
+```
+
+Oppure scarica l'eseguibile da [ffmpeg.org](https://ffmpeg.org/download.html) e aggiungilo al PATH.
+
+**Linux**:
+```bash
+sudo apt install ffmpeg
+```
+
+**macOS**:
+```bash
+brew install ffmpeg
+```
 
 ## Streaming
 

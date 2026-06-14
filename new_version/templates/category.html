@@ -67,8 +67,11 @@
   <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-gutter">
     {% for v in category["videos"] %}
     <div class="group cursor-pointer" onclick="openPlayer('{{ v.path }}', '{{ v.name }}')">
-      <div class="aspect-[2/3] rounded-xl overflow-hidden mb-3 card-hover-glow transition-all duration-300 hover:scale-105 video-placeholder relative">
-        <span class="material-symbols-outlined icon">movie</span>
+      <div class="aspect-[2/3] rounded-xl overflow-hidden mb-3 card-hover-glow transition-all duration-300 hover:scale-105 relative bg-surface-container">
+        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="/thumbnail/{{ v.path }}" alt="{{ v.name }}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="absolute inset-0 video-placeholder" style="display:none">
+          <span class="material-symbols-outlined icon">movie</span>
+        </div>
         <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
           <span class="material-symbols-outlined text-secondary-fixed text-4xl self-center" style="font-variation-settings: 'FILL' 1;">play_circle</span>
         </div>

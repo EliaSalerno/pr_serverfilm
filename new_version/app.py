@@ -1,10 +1,15 @@
 import mimetypes
+import subprocess
+import shutil
 from pathlib import Path
-from flask import Flask, render_template, request, Response, abort
+from flask import Flask, render_template, request, Response, abort, send_file
 
 app = Flask(__name__)
 BASE = Path(__file__).resolve().parent.parent
 VIDEO_FOLDER = BASE / "video"
+THUMBNAIL_CACHE = BASE / ".thumbnails"
+STATIC_IMG = Path(__file__).resolve().parent / "static" / "img"
+FFMPEG_PATH = shutil.which("ffmpeg")
 
 def get_categories():
     if not VIDEO_FOLDER.exists():
@@ -64,6 +69,57 @@ def view_subcategory(category_name, subcategory_name):
     if sub is None:
         abort(404)
     return render_template("category.html", category_name=category_name, subcategory_name=subcategory_name, category={"videos": sub, "subcategories": {}}, categories=categories, total_videos=total_videos(categories))
+
+@app.route("/thumbnail/<path:filename>")
+def video_thumbnail(filename):
+    filepath = VIDEO_FOLDER / filename
+    if not filepath.exists() or not filepath.is_file():
+        abort(404)
+
+    fp = Path(filename)
+    for candidate in [
+        STATIC_IMG / fp.with_suffix(".png").name,
+        STATIC_IMG / fp.with_suffix(".jpg").name,
+        STATIC_IMG / f"{fp.parent.name}.png",
+        STATIC_IMG / f"{fp.parent.name}.jpg",
+    ]:
+        if candidate.exists():
+            mimetype = "image/png" if candidate.suffix == ".png" else "image/jpeg"
+            return send_file(candidate, mimetype=mimetype)
+
+    thumb_name = fp.with_suffix(".jpg")
+    thumb_path = THUMBNAIL_CACHE / thumb_name
+
+    if thumb_path.exists():
+        return send_file(thumb_path, mimetype="image/jpeg")
+
+    if not FFMPEG_PATH:
+        abort(404)
+
+    THUMBNAIL_CACHE.mkdir(parents=True, exist_ok=True)
+    thumb_path.parent.mkdir(parents=True, exist_ok=True)
+
+    try:
+        duration_cmd = [FFMPEG_PATH, "-i", str(filepath), "-f", "null", "-"]
+        result = subprocess.run(duration_cmd, capture_output=True, text=True, timeout=30)
+        duration_line = [l for l in result.stderr.split("\n") if "Duration" in l]
+        duration_str = duration_line[0].split("Duration: ")[1].split(",")[0] if duration_line else "60"
+        parts = duration_str.split(":")
+        seconds = int(parts[0]) * 3600 + int(parts[1]) * 60 + float(parts[2])
+        seek_time = seconds * 0.2
+
+        subprocess.run(
+            [FFMPEG_PATH, "-ss", str(seek_time), "-i", str(filepath),
+             "-vframes", "1", "-q:v", "5", str(thumb_path)],
+            capture_output=True, timeout=30, check=True
+        )
+
+        if thumb_path.exists():
+            return send_file(thumb_path, mimetype="image/jpeg")
+    except Exception:
+        pass
+
+    abort(404)
 
 @app.route("/video/<path:filename>")
 def stream_video(filename):
