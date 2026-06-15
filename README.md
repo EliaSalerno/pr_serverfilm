@@ -1,99 +1,114 @@
-# Server Film
+# KINGSTREAM
 
-Web app Flask per navigare e riprodurre video MP4 da una cartella locale, con supporto a categorie e sottocategorie dinamiche.
+Web app Flask ispirata a Flash (DC) per navigare e riprodurre video MP4 da una cartella locale, con categorie e sottocategorie dinamiche.
 
 ## Requisiti
 
 - Python 3.8+
 - Flask
-- FFmpeg (per le thumbnail dei video) — [scarica qui](https://ffmpeg.org/download.html)
+- FFmpeg (per le thumbnail) — [scarica qui](https://ffmpeg.org/download.html)
 
 ## Installazione
 
 ```bash
-# Clona il repository
 git clone <url>
 cd pr_serverfilm
 
-# (Opzionale) Crea un ambiente virtuale
 python -m venv .venv
 .venv\Scripts\activate    # Windows
 source .venv/bin/activate # Linux/macOS
 
-# Installa Flask
 pip install flask
 ```
 
 ## Utilizzo
 
-1. **Inserisci i video** — Copia i file `.mp4` nella cartella `video/`, organizza in sottocartelle per categoria (es. `video/film/`, `video/serietv/Supergirl/`).
+1. **Inserisci i video** — Copia i file `.mp4` in `video/`, organizzati per categoria (es. `video/film/`, `video/serietv/Supergirl/`).
 
-2. **Avvia il server**:
+2. **Avvia il server** (sviluppo):
    ```bash
    cd new_version
    python app.py
    ```
 
-3. **Apri il browser** all'indirizzo [http://localhost:5001](http://localhost:5001).
+3. **Avvia il server** (produzione con Waitress):
+   ```bash
+   pip install waitress
+   cd new_version
+   waitress-serve --host 0.0.0.0 --port 5001 app:app
+   ```
 
-4. **Naviga** tra le categorie principali, seleziona una sottocategoria (es. Supergirl), clicca un video per riprodurlo.
+4. Apri [http://localhost:5001](http://localhost:5001).
 
 ## Struttura del progetto
 
 ```
 pr_serverfilm/
 ├── new_version/
-│   ├── app.py              # Server Flask
+│   ├── app.py                # Server Flask
 │   ├── templates/
-│   │   ├── base.html       # Layout condiviso (nav, footer, player)
-│   │   ├── index.html      # Home page con categorie
-│   │   └── category.html   # Pagina dinamica per categorie/sottocategorie
-│   └── stitch/             # Modelli di design di riferimento
-├── video/                  # Cartella per i file .mp4
+│   │   ├── base.html         # Layout (nav, footer, player)
+│   │   ├── index.html        # Home page
+│   │   └── category.html     # Pagina categoria/sottocategoria
+│   ├── static/
+│   │   └── img/              # Immagini (sfondo, thumbnail statiche)
+│   └── stitch/               # Modelli di design di riferimento
+├── video/                    # Cartella per i file .mp4
 │   ├── film/
 │   ├── serietv/
 │   │   ├── Batwoman/
 │   │   └── Supergirl/
-│   └── tutorial/
-├── .thumbnails/          # Cache delle thumbnail (generato automaticamente)
+│   ├── tutorial/
+│   └── etichetta/            # File .txt con descrizioni (stesso nome del .mp4)
+├── .thumbnails/              # Cache thumbnail (auto-generato)
 ├── .gitignore
 └── README.md
 ```
 
 ## Categorie e sottocategorie
 
-Il sistema è completamente dinamico: le categorie vengono generate automaticamente dalla struttura della cartella `video/`.
+Il sistema è dinamico: le categorie nascono dalla struttura di `video/`.
 
-- Ogni **sottocartella** di `video/` diventa una **categoria principale** (es. `film`, `serietv`, `tutorial`).
-- Se una categoria contiene **sottocartelle** (es. `serietv/Batwoman/`, `serietv/Supergirl/`), queste diventano **sottocategorie** navigabili con una propria pagina.
-- Le categorie con **file `.mp4` diretti** (es. `film/`, `tutorial/`) mostrano i video in griglia.
-- I file `.mp4` nella radice di `video/` finiscono nella categoria "Generale".
+- Ogni **sottocartella** di `video/` → categoria principale.
+- Se una categoria contiene **sottocartelle** (es. `serietv/Supergirl/`) → sottocategorie navigabili.
+- Categorie con **file `.mp4` diretti** → griglia video.
+- File `.mp4` nella radice di `video/` → categoria "Generale".
 
 ## Thumbnail
 
-Le thumbnail vengono generate automaticamente da FFmpeg estraendo un frame al 20% della durata di ogni video. Le immagini sono cachate nella cartella `.thumbnails/` (creata automaticamente).
+Generate automaticamente da FFmpeg (frame al 20% della durata), cachate in `.thumbnails/`. Se FFmpeg è assente, viene mostrata un'icona placeholder.
 
-Se FFmpeg non è installato, le thumbnail non vengono generate e viene mostrata un'icona come placeholder.
-
-### Installare FFmpeg
-
-**Windows** (con winget):
 ```bash
+# Windows
 winget install FFmpeg
-```
 
-Oppure scarica l'eseguibile da [ffmpeg.org](https://ffmpeg.org/download.html) e aggiungilo al PATH.
-
-**Linux**:
-```bash
+# Linux
 sudo apt install ffmpeg
-```
 
-**macOS**:
-```bash
+# macOS
 brew install ffmpeg
 ```
 
+## Descrizioni video
+
+Crea un file `.txt` con lo stesso nome del `.mp4` in `video/etichetta/`:
+
+```
+video/film/Masters_Of_The_Universe_2026.mp4
+video/etichetta/Masters_Of_The_Universe_2026.txt   ← descrizione
+```
+
+Il contenuto appare sotto la card (max 2 righe visibili, spazio riservato anche se assente).
+
+**Lunghezza consigliata (in caratteri):**
+- **Molto breve** (~10–30) — una riga. Ideale per genere/anno (es. `Azione 2026`).
+- **Media** (~50–200) — fino a 2 righe. Adatta per un breve riassunto.
+- **Lungo** (oltre 200) — troncato con puntini. Il contenuto completo rimane nel file.
+
 ## Streaming
 
-Il server supporta lo streaming con richieste HTTP Range, permettendo di saltare avanti/indietro e di riprendere la riproduzione da dove era stata interrotta.
+Supporta richieste HTTP Range per saltare avanti/indietro e riprendere la riproduzione.
+
+## Tema Flash (DC)
+
+Il tema si ispira alla tuta di Flash: rosso (`#DC2626`) e oro (`#FBBF24`) su sfondo bordeaux scuro (`#100808`).

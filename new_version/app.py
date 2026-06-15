@@ -11,6 +11,12 @@ THUMBNAIL_CACHE = BASE / ".thumbnails"
 STATIC_IMG = Path(__file__).resolve().parent / "static" / "img"
 FFMPEG_PATH = shutil.which("ffmpeg")
 
+def get_description(video_path):
+    desc_path = VIDEO_FOLDER / "etichetta" / (video_path.stem + ".txt")
+    if desc_path.exists():
+        return desc_path.read_text(encoding="utf-8", errors="ignore").strip()
+    return ""
+
 def get_categories():
     if not VIDEO_FOLDER.exists():
         return {}
@@ -21,7 +27,7 @@ def get_categories():
             for f in sorted(entry.iterdir(), key=lambda e: e.name.lower()):
                 if f.is_dir():
                     sub_videos = sorted(
-                        ({"name": v.name, "path": f"{entry.name}/{f.name}/{v.name}"}
+                        ({"name": v.name, "path": f"{entry.name}/{f.name}/{v.name}", "description": get_description(v)}
                          for v in sorted(f.iterdir(), key=lambda e: e.name.lower())
                          if v.suffix.lower() == ".mp4"),
                         key=lambda v: v["name"].lower()
@@ -30,12 +36,12 @@ def get_categories():
                         cat["subcategories"][f.name] = sub_videos
                 elif f.suffix.lower() == ".mp4":
                     cat["videos"].append(
-                        {"name": f.name, "path": f"{entry.name}/{f.name}"}
+                        {"name": f.name, "path": f"{entry.name}/{f.name}", "description": get_description(f)}
                     )
             categories[entry.name] = cat
         elif entry.suffix.lower() == ".mp4":
             cat = categories.setdefault("Generale", {"videos": [], "subcategories": {}})
-            cat["videos"].append({"name": entry.name, "path": entry.name})
+            cat["videos"].append({"name": entry.name, "path": entry.name, "description": get_description(entry)})
     return categories
 
 def total_videos(categories):

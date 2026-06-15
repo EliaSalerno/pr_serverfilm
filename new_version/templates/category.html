@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}{{ subcategory_name if subcategory_name else category_name }} - CINESTREAM{% endblock %}
+{% block title %}{{ subcategory_name if subcategory_name else category_name }} - KINGSTREAM{% endblock %}
 {% block content %}
 <!-- Breadcrumb -->
 <div class="px-margin-desktop max-w-container-max mx-auto pt-8 pb-4">
@@ -39,13 +39,13 @@
       <div class="glass-card rounded-2xl p-8 card-hover-glow transition-all duration-300 hover:scale-[1.02] h-full">
         <div class="flex items-center justify-between mb-6">
           <span class="material-symbols-outlined text-5xl text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">folder_special</span>
-          <span class="px-3 py-1 bg-secondary-fixed/10 text-secondary-fixed rounded-full text-xs font-bold">{{ sub_videos|length }} video</span>
+          <span class="px-3 py-1 bg-[#DC2626]/10 text-[#DC2626] rounded-full text-xs font-bold">{{ sub_videos|length }} video</span>
         </div>
         <h3 class="font-headline-md text-headline-md text-secondary mb-2 group-hover:text-secondary-fixed transition-colors">{{ sub_name }}</h3>
         <p class="text-on-surface-variant font-body-md">{{ sub_videos|length }} episodi disponibili</p>
         <div class="mt-6 flex items-center gap-2 text-secondary-fixed font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">
-          <span>Guarda</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          <span>Accedi</span>
+          <span class="material-symbols-outlined text-sm">flash_on</span>
         </div>
       </div>
     </a>
@@ -73,10 +73,11 @@
           <span class="material-symbols-outlined icon">movie</span>
         </div>
         <div class="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-4">
-          <span class="material-symbols-outlined text-secondary-fixed text-4xl self-center" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+          <span class="material-symbols-outlined text-[#FBBF24] text-4xl self-center" style="font-variation-settings: 'FILL' 1;">play_circle</span>
         </div>
       </div>
       <h4 class="text-secondary font-bold font-body-md truncate">{{ v.name }}</h4>
+      <p class="text-on-surface-variant text-xs mt-1 line-clamp-2 min-h-[2.5em]">{{ v.description }}</p>
     </div>
     {% endfor %}
   </div>
@@ -89,7 +90,7 @@
     <span class="material-symbols-outlined text-6xl text-on-surface-variant opacity-40 mb-4">video_library</span>
     <h3 class="font-headline-md text-headline-md text-secondary mb-2">Nessun contenuto</h3>
     <p class="text-on-surface-variant font-body-md">Questa categoria non contiene ancora video o sottocategorie.</p>
-    <a href="/" class="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-secondary-fixed/20 text-secondary-fixed rounded-full hover:bg-secondary-fixed/30 transition-colors font-label-md">
+    <a href="/" class="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-[#DC2626]/20 text-[#DC2626] rounded-full hover:bg-[#DC2626]/30 transition-colors font-label-md">
       <span class="material-symbols-outlined text-sm">arrow_back</span>
       Torna alla home
     </a>

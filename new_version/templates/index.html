@@ -2,24 +2,24 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="relative h-[70vh] w-full overflow-hidden -mt-20">
-  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ url_for('static', filename='img/screen.png') }}');">
+  <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ url_for('static', filename='img/martin_flash.png') }}');">
     <div class="absolute inset-0 vignette-gradient"></div>
     <div class="absolute inset-0 vignette-bottom"></div>
   </div>
   <div class="relative z-10 h-full flex flex-col justify-center px-margin-desktop max-w-container-max mx-auto">
     <div class="max-w-2xl space-y-6">
       <div class="flex items-center gap-3">
-        <span class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-3 py-1 rounded tracking-widest uppercase">Server Film</span>
+        <span class="bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm px-3 py-1 rounded tracking-widest uppercase">⚡ FLASH STREAM</span>
         <span class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
           <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">movie</span>
           {{ total_videos }} video
         </span>
       </div>
       <h1 class="font-display-lg text-display-lg leading-tight">
-        Il Tuo <span class="text-secondary-fixed">Cinema</span> Personale
+        Streaming alla <span class="text-[#FBBF24]">Velocità</span> della Luce
       </h1>
       <p class="font-body-lg text-body-lg text-on-surface-variant/90 leading-relaxed max-w-xl">
-        Esplora la tua collezione di film, serie TV e tutorial. Seleziona una categoria per iniziare la visione.
+        Esplora la tua collezione di film, serie TV e tutorial. Ogni categoria ti aspetta alla velocità del lampo.
       </p>
     </div>
   </div>
@@ -30,8 +30,8 @@
   <div class="flex items-center gap-3 mb-12">
     <span class="w-1 h-10 bg-secondary-fixed rounded-full"></span>
     <div>
-      <h2 class="font-headline-lg text-headline-lg text-secondary">Categorie</h2>
-      <p class="text-on-surface-variant font-body-md">Sfoglia i tuoi contenuti per categoria</p>
+      <h2 class="font-headline-lg text-headline-lg text-secondary">Velocità in Categorie</h2>
+      <p class="text-on-surface-variant font-body-md">Ogni categoria ti aspetta alla velocità del lampo</p>
     </div>
   </div>
 
@@ -44,9 +44,9 @@
       <div class="glass-card rounded-2xl p-8 card-hover-glow transition-all duration-300 hover:scale-[1.02] h-full">
         <div class="flex items-center justify-between mb-6">
           <span class="material-symbols-outlined text-5xl text-secondary-fixed" style="font-variation-settings: 'FILL' 1;">
-            {% if "film" in cat_name.lower() %}movie{% elif "serie" in cat_name.lower() or "tv" in cat_name.lower() %}live_tv{% elif "tutorial" in cat_name.lower() %}school{% else %}folder{% endif %}
+            {% if "film" in cat_name.lower() %}bolt{% elif "serie" in cat_name.lower() or "tv" in cat_name.lower() %}live_tv{% elif "tutorial" in cat_name.lower() %}school{% else %}folder{% endif %}
           </span>
-          <span class="px-3 py-1 bg-secondary-fixed/10 text-secondary-fixed rounded-full text-xs font-bold">
+          <span class="px-3 py-1 bg-[#DC2626]/10 text-[#DC2626] rounded-full text-xs font-bold">
             {% if has_sub %}{{ cat_data["subcategories"]|length }} sottocategorie{% else %}{{ cat_data["videos"]|length }} video{% endif %}
           </span>
         </div>
@@ -61,8 +61,8 @@
           {% endif %}
         </p>
         <div class="mt-6 flex items-center gap-2 text-secondary-fixed font-label-md text-label-md opacity-0 group-hover:opacity-100 transition-opacity">
-          <span>Esplora</span>
-          <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          <span>Accedi al Flash</span>
+          <span class="material-symbols-outlined text-sm">bolt</span>
         </div>
       </div>
     </a>
