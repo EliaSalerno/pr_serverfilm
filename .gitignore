@@ -22,7 +22,7 @@
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 
-./video/*.mp4
+/video
 __pycache__/
 *.pyc
 .thumbnails/
